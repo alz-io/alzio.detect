@@ -1,0 +1,26 @@
+Package: alzio.detect
+Title: Early Diagnosis Assessment for Alzheimer's Disease
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Dany", "Mukesha", , "danymukesha@gmail.com",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0001-9514-751X"))
+  )
+Description: A unified analytical toolkit for early Alzheimer's disease
+    diagnosis assessment. Provides functions for cognitive test scoring and
+    normative comparisons, biomarker interpretation, diagnostic classification,
+    risk stratification, and visualization. Designed to work with data from
+    common Alzheimer's studies (ADNI, NACC, custom datasets) to produce
+    clinically interpretable diagnosis assessments.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    stats,
+    utils,
+    graphics
+Suggests:
+    testthat (>= 3.0.0),
+    roxygen2
+Config/testthat/edition: 3
