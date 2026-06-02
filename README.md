@@ -1,12 +1,10 @@
 # alzio.detect
 
-**Early diagnosis assessment for Alzheimer's disease — an R analytical toolkit.**
+**Early diagnosis assessment for Alzheimer's disease;  an R analytical toolkit.**
 
-The gap this package fills isn't data access. The USC alzverse project (Donohue et al., 2026, *Alzheimer's & Dementia*, doi:10.1002/alz.71152) already does that well—ADNIMERGE2 and A4LEARN bundle ADNI and A4 trial data into portable R packages. What's been missing is a *unified analytical layer* that sits on top of any Alzheimer's dataset and produces clinically interpretable diagnosis assessments: cognitive test scoring with proper normative adjustments, biomarker classification following current frameworks, diagnostic accuracy with publication-ready output, risk stratification for MCI-to-dementia progression, and visualisations designed for the kinds of questions researchers actually ask.
+The gap this package fills isn't data access. The USC alzverse project (Donohue et al., 2026, *Alzheimer's & Dementia*, doi:10.1002/alz.71152) already does that well, such as ADNIMERGE2 and A4LEARN bundle ADNI and A4 trial data into portable R packages. What's been missing is a *unified analytical layer* that sits on top of any Alzheimer's dataset and produces clinically interpretable diagnosis assessments: cognitive test scoring with proper normative adjustments, biomarker classification following current frameworks, diagnostic accuracy with publication-ready output, risk stratification for MCI-to-dementia progression, and visualisations designed for the kinds of questions researchers actually ask.
 
 alzio.detect is that layer. It works with data from ADNI, NACC, your own study, or the alzverse packages. Everything runs in base R with no heavy dependencies.
-
----
 
 ## What the package does
 
@@ -14,16 +12,16 @@ The package is organised around the workflow of a typical early-AD diagnostic as
 
 ### 1. Data import and standardisation
 
-`read_ad_data()` maps column names from ADNI and NACC CSV exports to a consistent internal naming scheme (20+ ADNI variables, 7 NACC variables, with room to add more). If your study uses different names, pass `source = "custom"` and it reads the file as-is. The standardised names—`id`, `visit`, `dx`, `age`, `mmse`, `cdr_sb`, `ptau`, `nfl`, and so on—are the same ones used internally by all downstream functions, so you can move from raw CSV to analysis in one call.
+`read_ad_data()` maps column names from ADNI and NACC CSV exports to a consistent internal naming scheme (20+ ADNI variables, 7 NACC variables, with room to add more). If your study uses different names, pass `source = "custom"` and it reads the file as-is. The standardised names (`id`, `visit`, `dx`, `age`, `mmse`, `cdr_sb`, `ptau`, `nfl`, and so on) are the same ones used internally by all downstream functions, so you can move from raw CSV to analysis in one call.
 
 ### 2. Cognitive test scoring
 
 Four widely-used instruments are covered:
 
-- **`score_mmse()`** — Sums the 30 binary items of the Mini-Mental State Examination (Folstein et al., 1975). Pass 30 item-level 0/1 responses, or a single total score that gets validated and passed through.
-- **`score_moca()`** — Sums MoCA items and applies the standard +1 education adjustment for ≤12 years of schooling (Nasreddine et al., 2005, *Journal of the American Geriatrics Society*, doi:10.1111/j.1532-5415.2005.53221.x). Capped at 30.
-- **`score_cdr()`** — Implements the Washington University algorithm (Morris, 1993, *Neurology*, doi:10.1212/WNL.43.11.2412) to compute the global CDR from six domain ratings (memory, orientation, judgment, community affairs, home/hobbies, personal care). Returns both the global score and the sum of boxes.
-- **`score_adas_cog13()`** — Sums 13 ADAS-Cog items with flexible column-name matching, supporting both the original ADNI column conventions and bare numeric vectors (Rosen et al., 1984, *American Journal of Psychiatry*).
+- **`score_mmse()`** sums the 30 binary items of the Mini-Mental State Examination (Folstein et al., 1975). Pass 30 item-level 0/1 responses, or a single total score that gets validated and passed through.
+- **`score_moca()`** sums MoCA items and applies the standard +1 education adjustment for ≤12 years of schooling (Nasreddine et al., 2005, *Journal of the American Geriatrics Society*, doi:10.1111/j.1532-5415.2005.53221.x). Capped at 30.
+- **`score_cdr()`** implements the Washington University algorithm (Morris, 1993, *Neurology*, doi:10.1212/WNL.43.11.2412) to compute the global CDR from six domain ratings (memory, orientation, judgment, community affairs, home/hobbies, personal care). Returns both the global score and the sum of boxes.
+- **`score_adas_cog13()`** sums 13 ADAS-Cog items with flexible column-name matching, supporting both the original ADNI column conventions and bare numeric vectors (Rosen et al., 1984, *American Journal of Psychiatry*).
 
 ### 3. Normative comparison
 
@@ -63,8 +61,6 @@ Each returns normal/borderline/abnormal categories with the cutoff used, so you 
 
 All plots use base R graphics—no ggplot2 dependency. **`plot_cognitive_profile()`** draws a radar/spider plot of domain Z-scores (Lezak et al., 2012, *Neuropsychological Assessment*, 5th ed., Oxford University Press). **`plot_longitudinal()`** displays individual and group-mean trajectories over time. **`summary_diagnostic_table()`** formats the output of `compute_diagnostic_accuracy()` into a clean 9-row table.
 
----
-
 ## Quick start
 
 ```r
@@ -99,8 +95,6 @@ plot_cognitive_profile(c(Memory = -1.8, Executive = -0.5,
                           Attention = -0.8))
 ```
 
----
-
 ## Current status
 
 This is an early research release (v0.0.0.9000). The scaffolding and core functions are implemented; what's still in development:
@@ -110,8 +104,6 @@ This is an early research release (v0.0.0.9000). The scaffolding and core functi
 - Bootstrap confidence intervals for random forest predictions
 - Expanded biomarker assay coverage (Lumipulse, Mass Spec cutoffs)
 - Integration examples with the alzverse package data
-
----
 
 ## References
 
@@ -133,9 +125,3 @@ The complete set of references supporting the implemented thresholds and methods
 | Logistic regression | Hosmer, Lemeshow & Sturdivant, 2013, Wiley |
 | Random forest (ranger) | Wright & Ziegler, 2017, *JSS* |
 | alzverse data packages | Donohue et al., 2026, *Alzheimer's & Dementia* |
-
----
-
-## License
-
-GPL-3.
