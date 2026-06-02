@@ -15,7 +15,6 @@ Description: A unified analytical toolkit for early Alzheimer's disease
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Imports:
     stats,
     utils,
@@ -24,3 +23,4 @@ Suggests:
     testthat (>= 3.0.0),
     roxygen2
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
