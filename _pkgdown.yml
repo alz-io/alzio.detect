@@ -1,0 +1,9 @@
+url: ~
+
+development:
+    mode: auto
+
+authors:
+    Dany Mukesha:
+        href: https://danymukesha.github.io/
+        #html: "<img src='https://github.com/danymukesha/BioGA/blob/main/man/figures/logo.png' width=72>"
