@@ -75,8 +75,9 @@ classify_csf <- function(abeta42, ttau, ptau,
   t_status <- if (t_pos) "positive" else "negative"
   n_status <- if (n_pos) "positive" else "negative"
 
-  atn <- paste0("A", substr(a_status, 1L, 1L), "T", substr(t_status, 1L, 1L),
-                "N", substr(n_status, 1L, 1L))
+  atn <- paste0("A", if (a_pos) "+" else "-",
+                "T", if (t_pos) "+" else "-",
+                "N", if (n_pos) "+" else "-")
 
   list(ATN_class = atn,
        abeta_status = a_status,

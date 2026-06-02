@@ -16,6 +16,5 @@
 #'   \item \strong{Visualization:} Cognitive profiles, longitudinal plots, and reports.
 #' }
 #'
-#' @docType package
 #' @name alzio.detect-package
-NULL
+"_PACKAGE"

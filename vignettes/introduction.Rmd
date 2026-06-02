@@ -1,0 +1,80 @@
+---
+title: "Introduction to alzio.detect"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to alzio.detect}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+`alzio.detect` provides an analytical toolkit for early Alzheimer's disease diagnosis assessment. This vignette walks through the core workflow.
+
+## Cognitive test scoring
+
+```{r}
+library(alzio.detect)
+
+# MMSE from item-level responses
+items <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+           1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+           1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+score_mmse(items)
+
+# MoCA with education adjustment
+score_moca(25, education_years = 11)
+
+# CDR
+cdr <- score_cdr(memory = 0.5, orientation = 0.5, judgment = 0,
+                 community = 0.5, home_hobbies = 0, personal_care = 0)
+cdr$global
+cdr$sb
+
+# ADAS-Cog13 from named columns
+adas <- score_adas_cog13(data.frame(
+  wordrecall = 5, naming = 2, commands = 1, constructional = 1,
+  ideational = 2, orientation = 3, wordrecog = 4,
+  instruction = 1, spokenlang = 1, wordfind = 2,
+  comprehension = 1, delayedrecall = 4, maze = 1
+))
+adas
+```
+
+## Biomarker classification
+
+```{r}
+csf <- classify_csf(abeta42 = 850, ttau = 400, ptau = 35)
+csf$ATN_class
+csf$abeta_status
+csf$ptau_abeta42_ratio
+
+classify_apoe_risk(c("3/3", "3/4", "4/4", "2/3"))
+
+interpret_blood_biomarkers(ptau217 = 0.45, nfl = 32, gfap = 220, age = 68)
+```
+
+## Diagnostic accuracy
+
+```{r}
+truth <- c(1, 1, 1, 0, 0, 1, 0, 0, 1, 0)
+pred <- c(0.9, 0.8, 0.7, 0.3, 0.2, 0.85, 0.1, 0.4, 0.75, 0.25)
+acc <- compute_diagnostic_accuracy(truth, pred)
+summary_diagnostic_table(acc)
+```
+
+## Progression risk
+
+```{r}
+risk <- compute_progression_risk(age = 72, mmse = 24, cdr_sb = 3,
+                                  apoe4 = TRUE, abeta_status = "positive")
+risk$risk_score
+risk$risk_category
+```
+
+## Cognitive staging
+
+```{r}
+classify_cognitive_stage(mmse = 24, cdr_global = 0.5,
+                          abeta_status = "positive", tau_status = "positive")
+```
